@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para el Amor de mi Vida</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            
+            border: 15px solid transparent;
+            border-image: repeating-linear-gradient(
+                45deg,
+                #ff4a4a, #ff4a4a 20px,
+                #ffffff 20px, #ffffff 40px,
+                #4a90e2 40px, #4a90e2 60px,
+                #ffffff 60px, #ffffff 80px
+            ) 15;
+
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .hidden { display: none !important; }
+
+        .pantalla-sobre {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .sobre-img {
+            width: 550px; 
+            max-width: 90vw;
+            cursor: pointer;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+            transition: transform 0.4s ease-out;
+        }
+
+        .sobre-img:hover { transform: scale(1.1); }
+        .sobre-img:active { transform: scale(0.95); }
+
+        .heart-container {
+            position: relative;
+            width: 850px; 
+            height: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .corazon-fondo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            object-fit: contain;
+        }
+
+        .texto-corazon {
+            position: relative;
+            z-index: 2;
+            color: rgb(0, 0, 0); 
+            width: 65%; 
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        h1, h3, .poema { 
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
+            margin-bottom: 10px;
+        }
+
+        .carta-texto {
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+
+        .pregunta-titulo {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            background: white;
+            border: 4px solid #000;
+            padding: 12px 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 5px 5px 0px #000;
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .botones-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 20px;
+            min-height: 110px;
+        }
+
+        #btn-si { 
+            background-color: #4aff4a; 
+            position: relative; 
+            z-index: 2000; /* Siempre por encima de todo */
+        }
+        
+        #btn-no { 
+            background-color: #ff4a4a; 
+            color: white; 
+            position: relative; /* Empieza normal */
+            z-index: 1000;
+            transition: all 0.2s ease;
+        }
+
+        #foto-final {
+            width: 130px; 
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mensaje-final {
+            font-size: 1.5rem !important;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla1" class="pantalla-sobre">
+        <img src="Sobre-Cerrado.png" class="sobre-img" alt="Sobre cerrado" onclick="abrirCarta()">
+        <p style="color: #110008; font-weight: bold; margin-top: 25px; font-size: 1.6rem;">Tienes un nuevo mensaje...</p>
+        <button class="btn" onclick="abrirCarta()">Toca para Abrir</button>
+    </div>
+
+    <div id="pantalla2" class="heart-container hidden">
+        <img src="Fondo carta.png" class="corazon-fondo" alt="Corazón">
+        
+        <div class="texto-corazon">
+            <div id="parteA">
+                <h3>Para el amor de mi vida....</h3>
+                <p class="carta-texto">Desde el dia en que te conocí, 
+                    mi corazón late más rápido con solo verte,
+                    mi alma se alegra con tu sonrisa,
+                    y mi pecho se llena de felicidad con tu compañia.
+                </p>
+                <button class="btn" onclick="siguiente('A', 'B')">Continuar</button>
+            </div>
+
+            <div id="parteB" class="hidden">
+                <h3 class="pregunta-titulo">¿Aceptas ser mi San Valentín?</h3>
+                <div class="botones-wrap">
+                    <button id="btn-si" class="btn" onclick="siguiente('B', 'C')">SÍ</button>
+                    <button id="btn-no" class="btn" onmouseover="escapar()" onclick="escapar()">No</button>
+                </div>
+            </div>
+
+            <div id="parteC" class="hidden">
+                <img src="Snoopy-love.gif" id="foto-final" alt="Snoopy Love">
+                <p class="poema" style="font-size: 1.4rem;">
+                    Sabia que dirias que si,<br>
+                    Te amo mi niña bonita.<br>
+                    "Que bonito es tenerte en mi vida,<br>
+                    Y desear que pasen los dias solo por mi deseo de volverte a ver."
+                </p>
+                <p class="mensaje-final">Feliz Primer San Valentin bonita. <br> Te Amo ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let escalaSi = 1;
+
+        function abrirCarta() {
+            document.getElementById('pantalla1').classList.add('hidden');
+            document.getElementById('pantalla2').classList.remove('hidden');
+        }
+
+        function siguiente(actual, sig) {
+            document.getElementById('parte' + actual).classList.add('hidden');
+            document.getElementById('parte' + sig).classList.remove('hidden');
+        }
+
+        function escapar() {
+            const btnNo = document.getElementById('btn-no');
+            const btnSi = document.getElementById('btn-si');
+            
+            // 1. Aumentar el botón SÍ
+            escalaSi += 0.4;
+            btnSi.style.transform = `scale(${escalaSi})`;
+
+            // 2. Cambiar a fixed solo la primera vez que se interactúa
+            if (btnNo.style.position !== 'fixed') {
+                btnNo.style.position = 'fixed';
+            }
+
+            // 3. Calcular dimensiones de la pantalla
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
+
+            // 4. Generar coordenadas aleatorias por TODA la pantalla
+            const randomX = Math.random() * (windowWidth - btnWidth);
+            const randomY = Math.random() * (windowHeight - btnHeight);
+
+            // 5. Aplicar posición
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+</html>
